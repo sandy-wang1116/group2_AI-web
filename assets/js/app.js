@@ -24,7 +24,7 @@ function calc(){
  var g=gv.map(function(x){return x==null?{net:0,tax:0}:gift(x)});
  var yi=P*y*n;
  var S=[
- {name:'不使用信託',inv:0,gv:null,own:'資產仍在委託人名下',left:null,flow:'不適用'},
+ {name:'不使用信託',inv:0,gv:gv[1],own:'資產仍在委託人名下',left:P,flow:'不適用'，約 '+fmt(yi)},
  {name:'傳富發我 (85)',inv:P,gv:gv[1],own:'子女取得本金',left:P,flow:'孳息歸委託人，約 '+fmt(yi)},
  {name:'傳富發發 (88)',inv:P,gv:gv[2],own:'委託人取得本金',left:P,flow:'孳息歸子女，約 '+fmt(yi)},
  {name:'傳富久久 (99)',inv:P,gv:gv[3],own:'子女取得剩餘金額',left:P-pay*n,flow:'每年給付委託人 '+fmt(pay)+'，共 '+fmt(pay*n)}];
