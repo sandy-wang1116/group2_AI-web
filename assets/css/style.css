@@ -37,3 +37,4 @@ footer{max-width:980px;margin:0 auto;padding:10px 20px 40px;color:var(--mute);fo
 .concl small{display:block;font-weight:400;font-size:.9rem;opacity:.92}
 .row2{display:grid;grid-template-columns:2fr 1fr;gap:10px}
 .sub{margin:18px 0 0;font-size:1rem;color:var(--mute)}
+th small{font-weight:400}

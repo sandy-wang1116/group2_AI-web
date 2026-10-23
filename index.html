@@ -20,7 +20,6 @@
 <label>信託期間（年）<select id="years"><option>3</option><option>5</option><option selected>10</option><option>15</option><option>20</option></select></label>
 <label>折現利率（%）郵局一年期定儲固定利率<input id="disc" type="text" inputmode="decimal" data-num value="1.725"></label>
 <label>預估商品年化配息率（%）<input id="yld" type="text" inputmode="decimal" data-num value="5"></label>
-<label>每年自留固定生活費（新台幣，萬）<input id="pay" type="text" inputmode="decimal" data-num value="300"></label>
 </div>
 </section>
 <section class="card">
@@ -31,10 +30,11 @@
 <div>傳承人數<div id="heirs" style="padding:8px 0;font-weight:700">3 人</div></div>
 </div>
 <div class="grid">
-<div>期滿是否移轉本金給子女？<div class="seg" data-t="q1"><button type="button" data-v="1">是</button><button type="button" class="on" data-v="0">否</button></div></div>
-<div>期間是否自留固定生活費？<div class="seg" data-t="q2"><button type="button" class="on" data-v="0">否</button><button type="button" data-v="1">是</button></div></div>
+<div>期滿是否將本金給子女？<div class="seg" data-t="q1"><button type="button" class="on" data-v="1">是</button><button type="button" data-v="0">否</button></div></div>
+<div id="q2wrap">期間是否自留固定生活費？<div class="seg" data-t="q2"><button type="button" class="on" data-v="1">是</button><button type="button" data-v="0">否</button></div></div>
+<label id="pwrap">每年自留固定生活費（新台幣，萬）<input id="pay" type="text" inputmode="decimal" data-num value="300"></label>
 </div>
-<p class="hint">「期滿是否移轉本金」選「是」時，推薦傳富發我；選「否」時，再依是否自留生活費推薦傳富久久或傳富發發。</p>
+<p class="hint">不給子女本金：比較「不使用信託」與傳富發發（贈與稅＋所得稅）。給子女本金：不自留生活費比較傳富發我，自留生活費比較傳富久久（皆為贈與稅）。依預估應繳稅額最低者推薦。</p>
 </section>
 <div class="actions"><button type="button" id="calc" class="primary">開始計算</button></div>
 <p id="msg" role="alert"></p>
@@ -42,7 +42,7 @@
 <div id="concl" class="concl"></div>
 <h2>三、架構比較（單位：萬元）</h2>
 <div class="scroll"><table id="cmp"></table></div>
-<h3>預估贈與稅比較</h3>
+<h3 id="ctitle">預估應繳稅額比較</h3>
 <div id="chart"></div>
 <details><summary>計算明細與假設</summary><div id="detail"></div></details>
 </section>
