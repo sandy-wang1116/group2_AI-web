@@ -29,9 +29,9 @@ function calc(){
   S=[{name:'不使用信託',alt:'（每年贈與孳息給子女）',inv:0,gv:n*Y,gtax:n*g0,itax:n*Y*I.settlorRate,own:'委託人保有本金',flow:'孳息歸子女，約 '+fmt(yi)},
      {name:'傳富發發 (88)',inv:P,gv:P-P*v,gtax:g.tax,itax:n*k*itax(ni),own:'委託人取得本金',flow:'孳息歸子女，約 '+fmt(yi)}];
  }else{
-  var G0=q2?P-pay*n:P,h0=gift(G0),gv=q2?Math.max(0,P-pvPay):P*v,g1=gift(gv);
+  var G0=q2?P+yi-pay*n:P,h0=gift(G0),gv=q2?Math.max(0,P-pvPay):P*v,g1=gift(gv);
   S=[{name:'不使用信託',alt:q2?'（一次贈與剩餘本金）':'（一次贈與本金）',inv:0,gv:G0,net:h0.net,gtax:h0.tax,itax:0,own:q2?'子女一次取得剩餘本金':'子女一次取得本金',left:null,flow:'不適用'},
-     {name:q2?'傳富久久 (99)':'傳富發我 (85)',inv:P,gv:gv,net:g1.net,gtax:g1.tax,itax:0,own:q2?'子女取得剩餘金額':'子女取得本金',left:q2?P-pay*n:P,flow:q2?'每年給付委託人 '+fmt(pay)+'，共 '+fmt(pay*n):'孳息歸委託人，約 '+fmt(yi)}];
+     {name:q2?'傳富久久 (99)':'傳富發我 (85)',inv:P,gv:gv,net:g1.net,gtax:g1.tax,itax:0,own:q2?'子女取得剩餘金額':'子女取得本金',left:q2?G0:P,flow:q2?'每年給付委託人 '+fmt(pay)+'，共 '+fmt(pay*n):'孳息歸委託人，約 '+fmt(yi)}];
  }
  S.forEach(function(s){s.tax=s.gtax+s.itax});
  var mn=Math.min(S[0].tax,S[1].tax),best=S.filter(function(s){return s.tax-mn<0.005}),b0=S[0];
@@ -60,7 +60,7 @@ function calc(){
  $('cmp').innerHTML=h+'</tbody>';
  chart(S,best);
  $('detail').innerHTML='<p>信託本金折合新台幣 '+fmt(P)+' 萬；信託 '+n+' 年；折現利率 '+(d*100).toFixed(3)+'%；傳承人數 '+((k||0)+st.sp)+' 人（贈與稅免稅額 '+T.gift.exemption+' 萬為「每位贈與人每年」，不因受贈人數增加；配偶不列為受贈對象）。</p>'+
- (q1?(q2?'<p>傳富久久：每年給付 '+fmt(pay)+' 萬折現總和 '+fmt(pvPay)+' 萬；贈與價值＝本金 − 折現總和。不使用信託以期滿剩餘本金 '+fmt(G0)+' 萬一次贈與計算。</p>':'<p>傳富發我：贈與價值＝本金折現值；不使用信託以本金 '+fmt(P)+' 萬一次贈與計算。</p>')+'<p>此情境僅比較贈與稅，未計入所得稅。</p>':
+ (q1?(q2?'<p>傳富久久：每年給付 '+fmt(pay)+' 萬折現總和 '+fmt(pvPay)+' 萬；贈與價值＝本金 − 折現總和。期滿剩餘本金＝本金 '+fmt(P)+' ＋ 期間孳息 '+fmt(yi)+' － 自留生活費 '+fmt(pay*n)+' ＝ '+fmt(G0)+' 萬（兩方案同一口徑）；不使用信託以此金額一次贈與計算，傳富久久之贈與價值仍依稅法折現公式。</p>':'<p>傳富發我：贈與價值＝本金折現值；不使用信託以本金 '+fmt(P)+' 萬一次贈與計算。</p>')+'<p>此情境僅比較贈與稅，未計入所得稅。</p>':
  '<p>不使用信託：每年孳息 '+fmt(Y)+' 萬由委託人先課所得稅（假設最高級距 '+(I.settlorRate*100)+'%），再贈與子女，每年各自適用贈與稅免稅額。</p><p>傳富發發：孳息歸子女，由 '+k+' 位子女均分，每人年所得 '+fmt(Y/k)+' 萬，扣除免稅額 '+I.exemption+'、標準扣除額 '+I.standard+' 萬（115年度）後依綜所得稅累進稅率計算，假設子女無其他收入、無其他扣除額，亦未計入儲蓄投資特別扣除。</p>')+
  '<p>共同假設：同年度無其他合併計算之贈與；信託費用未計入；孳息以「本金 × 配息率 × 年數」簡單估算（不複利）；繼承稅未納入。</p>';
  $('result').hidden=false;$('result').scrollIntoView({behavior:'smooth'});
